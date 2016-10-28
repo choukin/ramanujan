@@ -1,0 +1,52 @@
+#!/usr/bin/env node --harmony
+'use starict'
+//定义脚手架的文件路径
+process.env.NODE_PATH = __dirname + '/../modules/'
+const program = require('commander')
+
+//获取配置文件里的版本
+program.version(require('../package').version)
+
+//定义使用方法
+program.usage('<command>')
+
+//添加模版命令
+program.command('add')
+		.description('添加一个新模版')
+		.alias('a')
+		.action(()=>{
+			require('../command/add')()
+		})	
+
+//展示现有模版命令
+program.command('list')
+		.description('展示现有模版')
+		.alias('l')
+		.action(()=>{
+			require('../command/list')()
+		})	
+
+//初始化一个项目命令
+program.command('init')
+		.description('生成一个新的项目')
+		.alias('i')
+		.action(()=>{
+			require('../command/init')()
+		})			
+
+//删除一个模版
+program.command('delete')
+		.description('删除一个模版')
+		.alias('d')
+		.action(()=>{
+			require('../command/init')()
+		})	
+
+//处理参数和提供帮助信息
+program.parse(process.argv)
+
+if(!program.args.length){
+	program.help()
+}
+
+
